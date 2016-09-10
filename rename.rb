@@ -16,8 +16,8 @@ require 'exiftool_vendored'
 
 # Usage help
 ARGV.each do |arg|
-  if arg == '-h' || ARGV.length != 2
-    puts "Usage: #{$0} <input folder> <output folder>"
+  if arg == '-h' || ARGV.length < 2
+    puts "Usage: #{$0} <input folder> <output folder> (<postfix>)"
     exit
   end
 end
@@ -31,7 +31,7 @@ def datetime_string(d)
   "#{d[0]}#{d[1]}#{d[2]}_#{d[3]}#{d[4]}#{d[5]}"
 end
 
-def build_renames_map(filenames, output_folder)
+def build_renames_map(filenames, output_folder, postfix)
   renames_map = {}
   exif_data = Exiftool.new(filenames)
   filenames.each do |filename|
@@ -44,16 +44,17 @@ def build_renames_map(filenames, output_folder)
     end
     d = d_string.scan(/[0-9]+/) # Array of [year, month, day, hour, min, sec] as strings
     ext = File.extname(filename).downcase
+    postfix_str = postfix ? "_#{postfix}" : ''
 
     new_foldername = "#{d[0]}_#{d[1]}"
     FileUtils.mkdir_p("#{output_folder}/#{new_foldername}")
 
     new_filename = "#{output_folder}/#{new_foldername}/"\
-      "IMG_#{datetime_string(d)}#{ext}"
+      "IMG_#{datetime_string(d)}#{postfix_str}#{ext}"
     conflict_letter = 'a'
     while (File.exist?(new_filename) || renames_map.values.include?(new_filename)) do
       new_filename = "#{output_folder}/#{new_foldername}/"\
-        "IMG_#{datetime_string(d)}#{conflict_letter}#{ext}"
+        "IMG_#{datetime_string(d)}#{conflict_letter}#{postfix_str}#{ext}"
       conflict_letter.succ!
     end
 
@@ -79,9 +80,10 @@ end
 
 input_folder = ARGV[0]
 output_folder = ARGV[1]
+postfix = ARGV[2]
 
 filenames = Dir.glob("#{input_folder}/**/*").select{ |e| File.file? e }
-renames_map = build_renames_map(filenames, output_folder)
+renames_map = build_renames_map(filenames, output_folder, postfix)
 renames_map.each do |k, v|
   print "#{k} => #{v}\n"
 end
