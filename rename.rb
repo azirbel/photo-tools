@@ -38,6 +38,10 @@ def build_renames_map(filenames, output_folder)
     exif_result = exif_data.result_for(filename)
     # date_time_original for JPG, create_date for MOV
     d_string = exif_result.to_hash[:date_time_original] || exif_result.to_hash[:create_date]
+    if (!d_string)
+      print "EXIF data missing for #{filename}; aborting."
+      exit 1
+    end
     d = d_string.scan(/[0-9]+/) # Array of [year, month, day, hour, min, sec] as strings
     ext = File.extname(filename).downcase
 
