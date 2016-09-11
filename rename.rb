@@ -6,7 +6,7 @@
 # Non-destructive: will not replace existing files, and will copy the input
 # files rather than moving them.
 #
-# Usage: ./rename.rb <input folder> <output folder>
+# Usage: ./rename.rb <input folder> <output folder> (<postfix>)
 #
 # The tool will show a list of new files that will be created, and prompt you
 # to continue or abort.
