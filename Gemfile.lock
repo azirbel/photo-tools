@@ -6,12 +6,14 @@ GEM
     exiftool_vendored (10.23.0)
       exiftool (>= 0.7.0)
     json (2.0.1)
+    trollop (2.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   exiftool_vendored (~> 10.23)
+  trollop (~> 2.1.2)
 
 BUNDLED WITH
    1.11.2
