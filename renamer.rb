@@ -43,7 +43,7 @@ class Renamer
     exif_data = Exiftool.new(filepaths)
     filepaths.map do |filepath|
       exif_result = exif_data.result_for(filepath)
-      d_string = exif_result.to_hash[:date_time_original] || exif_result.to_hash[:create_date]
+      d_string = exif_result.to_hash[:date_time_original] || exif_result.to_hash[:creation_date].to_s
       files_with_dates[filepath] = d_string
     end
 
