@@ -5,7 +5,7 @@ GEM
       json
     exiftool_vendored (10.65.0)
       exiftool (>= 0.7.0)
-    json (2.1.0)
+    json (2.3.1)
     trollop (2.1.2)
 
 PLATFORMS
