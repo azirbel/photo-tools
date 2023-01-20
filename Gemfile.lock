@@ -1,18 +1,18 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    exiftool (1.2.1)
+    exiftool (1.2.4)
       json
-    exiftool_vendored (10.65.0)
+    exiftool_vendored (12.25.0)
       exiftool (>= 0.7.0)
-    json (2.1.0)
+    json (2.6.3)
     trollop (2.1.2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  exiftool_vendored (~> 10.65)
+  exiftool_vendored (~> 12.25)
   trollop (~> 2.1.2)
 
 BUNDLED WITH
